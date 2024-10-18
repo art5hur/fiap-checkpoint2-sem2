@@ -2,7 +2,6 @@ package br.com.fiap.ecommerce.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +17,6 @@ import br.com.fiap.ecommerce.dtos.PedidoRequestCreateDto;
 import br.com.fiap.ecommerce.dtos.PedidoRequestUpdateDto;
 import br.com.fiap.ecommerce.dtos.PedidoResponseDto;
 import br.com.fiap.ecommerce.mapper.PedidoMapper;
-import br.com.fiap.ecommerce.mapper.ProdutoMapper;
 import br.com.fiap.ecommerce.repository.PedidoRepository;
 import br.com.fiap.ecommerce.service.PedidoService;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +36,7 @@ public class PedidoController {
     public ResponseEntity<List<PedidoResponseDto>> list() {
         List<PedidoResponseDto> dtos = pedidoService.list()
             .stream()
-            .map(e -> new PedidoResponseDto().toDto(e))
+            .map(e -> pedidoMapper.toDto(e))
             .toList();
         
         return ResponseEntity.ok().body(dtos);
